@@ -19,6 +19,8 @@ package controllers
 import (
 	"context"
 
+	corev1 "k8s.io/api/core/v1"
+
 	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -52,6 +54,13 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	log.Info("Reconcile called")
 	// your logic here
+
+	cm := &corev1.ConfigMap{}
+	_ = r.Client.Get(context.Background(), client.ObjectKey{
+		Namespace: "default",
+		Name:      "a-configmap",
+	}, cm)
+	log.Info("Loaded ConfigMap.", "ConfigMap", cm.Data)
 
 	return ctrl.Result{}, nil
 }
