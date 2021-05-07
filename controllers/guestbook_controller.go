@@ -58,7 +58,7 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	cm := &corev1.ConfigMap{}
 	_ = r.Client.Get(context.Background(), client.ObjectKey{
-		Namespace: "system",
+		Namespace: "guestbook-system",
 		Name:      "a-configmap",
 	}, cm)
 	log.Info("Loaded ConfigMap.", "ConfigMap", cm.Data)
