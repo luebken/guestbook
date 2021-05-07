@@ -39,7 +39,7 @@ type GuestbookReconciler struct {
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/finalizers,verbs=update
-//+kubebuilder:rbac:groups="",namespace=default,resources=configmap,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=core,namespace=system,resources=configmaps,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -58,7 +58,7 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	cm := &corev1.ConfigMap{}
 	_ = r.Client.Get(context.Background(), client.ObjectKey{
-		Namespace: "default",
+		Namespace: "system",
 		Name:      "a-configmap",
 	}, cm)
 	log.Info("Loaded ConfigMap.", "ConfigMap", cm.Data)

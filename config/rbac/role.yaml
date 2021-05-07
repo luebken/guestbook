@@ -39,17 +39,13 @@ kind: Role
 metadata:
   creationTimestamp: null
   name: manager-role
-  namespace: default
+  namespace: system
 rules:
 - apiGroups:
   - ""
   resources:
-  - configmap
+  - configmaps
   verbs:
-  - create
-  - delete
   - get
   - list
-  - patch
-  - update
   - watch
