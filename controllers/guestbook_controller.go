@@ -19,6 +19,8 @@ package controllers
 import (
 	"context"
 
+	corev1 "k8s.io/api/core/v1"
+
 	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
@@ -34,9 +36,10 @@ type GuestbookReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/finalizers,verbs=update
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks/finalizers,verbs=update
+//+kubebuilder:rbac:groups=core,namespace=system,resources=configmaps,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
@@ -52,6 +55,13 @@ func (r *GuestbookReconciler) Reconcile(ctx context.Context, req ctrl.Request) (
 
 	log.Info("Reconcile called")
 	// your logic here
+
+	cm := &corev1.ConfigMap{}
+	_ = r.Client.Get(context.Background(), client.ObjectKey{
+		Namespace: "guestbook-system",
+		Name:      "a-configmap",
+	}, cm)
+	log.Info("Loaded ConfigMap.", "ConfigMap", cm.Data)
 
 	return ctrl.Result{}, nil
 }

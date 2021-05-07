@@ -72,6 +72,7 @@ func main() {
 		HealthProbeBindAddress: probeAddr,
 		LeaderElection:         enableLeaderElection,
 		LeaderElectionID:       "ecaf1259.my.domain",
+		Namespace:              "guestbook-system",
 	})
 	if err != nil {
 		setupLog.Error(err, "unable to start manager")
