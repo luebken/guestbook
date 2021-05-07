@@ -36,9 +36,9 @@ type GuestbookReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/finalizers,verbs=update
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks/status,verbs=get;update;patch
+//+kubebuilder:rbac:groups=webapp.my.domain,namespace=system,resources=guestbooks/finalizers,verbs=update
 //+kubebuilder:rbac:groups=core,namespace=system,resources=configmaps,verbs=get;list;watch
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
