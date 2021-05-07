@@ -39,6 +39,7 @@ type GuestbookReconciler struct {
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks,verbs=get;list;watch;create;update;patch;delete
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/status,verbs=get;update;patch
 //+kubebuilder:rbac:groups=webapp.my.domain,resources=guestbooks/finalizers,verbs=update
+//+kubebuilder:rbac:groups="",namespace=default,resources=configmap,verbs=get;list;watch;create;update;patch;delete
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.
